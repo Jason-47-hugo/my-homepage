@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>袁培淞 · 个人主页 · P2</title>
+  <meta name="description" content="袁培淞的个人主页 · 计算机科学与技术专业本科生，正在用 Vibe Coding 设计与开发产品项目" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%2300c2ff'/%3E%3Cstop%20offset='1'%20stop-color='%23ff4fd8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle%20cx='50'%20cy='50'%20r='23'%20fill='url(%23g)'/%3E%3Cellipse%20cx='50'%20cy='50'%20rx='40'%20ry='12'%20fill='none'%20stroke='%23ff4fd8'%20stroke-width='6'%20transform='rotate(-20%2050%2050)'/%3E%3C/svg%3E" />
+  <!--
+    风格 P2 · 明亮霓虹复古未来风
+    浅色大底 + 赛博朋克配色 + 太阳/天际线/卫星 + 名字闪烁故障特效。
+  -->
+  <style>
+    :root{
+      --bg:#eef1f8;
+      --ink:#1b2242;
+      --ink-soft:#55608a;
+      --cyan:#00c2ff;
+      --magenta:#ff4fd8;
+      --purple:#7a5cff;
+      --orange:#ff9a3d;
+      --pink:#ff6fae;
+      --card:#ffffff;
+      --max:1120px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;background:var(--bg);color:var(--ink);position:relative;overflow-x:hidden;
+      font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.78;-webkit-font-smoothing:antialiased;
+    }
+    body::before{
+      content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+      background:
+        radial-gradient(52vw 52vw at 12% -6%, rgba(0,194,255,.18), transparent 70%),
+        radial-gradient(46vw 46vw at 94% 20%, rgba(255,79,216,.16), transparent 70%),
+        radial-gradient(42vw 42vw at 60% 108%, rgba(122,92,255,.16), transparent 70%);
+    }
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 26px;position:relative;z-index:3}
+    section{padding:84px 0;position:relative;z-index:3}
+    a{color:var(--ink);text-decoration:none}
+    .muted{color:var(--ink-soft)}
+    .lead{color:var(--ink-soft);max-width:62ch}
+    .kicker{font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:12.5px;color:var(--cyan)}
+    /* 板块标题统一（原来"关于我"写死了字号、"匿名建议"没写 → 两者不一致，现统一到这条规则） */
+    h2{font-size:clamp(28px,3.6vw,42px);font-weight:800;letter-spacing:-.01em;margin:12px 0 16px;line-height:1.25}
+
+    /* 背景图形 */
+    .scene{position:fixed;inset:0;z-index:1;pointer-events:none}
+    .sun{position:absolute;top:8%;left:8%;width:190px;height:190px;border-radius:50%;background:linear-gradient(180deg,var(--magenta),var(--orange));opacity:.9}
+    .sun::before{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-linear-gradient(90deg,rgba(255,255,255,.32) 0 5px,transparent 5px 12px)}
+    .skyline{position:absolute;bottom:0;left:0;width:100%;height:190px;opacity:.9}
+    .rings{position:absolute;top:30px;right:30px;width:270px;height:270px}
+    .ring{position:absolute;border:2px solid;border-radius:50%;inset:0}
+    .ring.r1{border-color:var(--magenta);animation:spin 26s linear infinite}
+    .ring.r2{inset:34px;border-color:var(--purple);animation:spin 34s linear infinite reverse}
+    .ring.r3{inset:70px;border-color:var(--cyan);animation:spin 42s linear infinite}
+    .sat{position:absolute;top:-8px;left:50%;margin-left:-8px;width:16px;height:16px;border-radius:50%;background:var(--cyan);box-shadow:0 0 14px var(--cyan)}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* 导航 */
+    header{position:sticky;top:0;z-index:20;background:rgba(238,241,248,.7);backdrop-filter:blur(12px);border-bottom:1px solid rgba(27,34,66,.08)}
+    nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+    .brand{font-weight:900;font-size:19px;color:var(--ink)}
+    nav .links{display:flex;gap:26px;font-size:15px;font-weight:700}
+    nav .links a{color:var(--ink-soft)}
+    nav .links a:hover{color:var(--cyan)}
+
+    /* Hero */
+    #hero{min-height:92vh;display:flex;align-items:center;text-align:center}
+    #hero .wrap{max-width:820px;margin:0 auto}
+    .name{font-size:clamp(54px,11vw,110px);font-weight:900;letter-spacing:-.02em;margin:10px 0 6px;color:var(--ink);animation:flicker 3.2s infinite}
+    @keyframes flicker{
+      0%,88%,92%,100%{text-shadow:0 0 0 transparent;transform:none;opacity:1}
+      89%{text-shadow:2px 0 var(--magenta),-2px 0 var(--cyan);transform:skewX(4deg);opacity:.92}
+      90%{text-shadow:-3px 0 var(--magenta),3px 0 var(--cyan);transform:skewX(-3deg);opacity:.86}
+      91%{text-shadow:3px 0 var(--magenta),-3px 0 var(--cyan);transform:skewX(2deg);opacity:.92}
+    }
+    .tagline{font-size:clamp(18px,2.8vw,26px);font-weight:700;margin-bottom:22px;color:var(--purple)}
+    .sum{font-size:17px;color:var(--ink-soft);max-width:54ch;margin:0 auto 32px}
+    .cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .btn{padding:15px 30px;border-radius:999px;font-weight:800;font-size:15px;transition:.16s;border:2px solid transparent}
+    .btn.primary{background:linear-gradient(120deg,var(--magenta),var(--purple));color:#fff;box-shadow:0 12px 30px rgba(255,79,216,.35)}
+    .btn.primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(122,92,255,.45)}
+    .btn.ghost{background:#fff;color:var(--ink);border-color:var(--cyan)}
+    .btn.ghost:hover{box-shadow:0 0 0 3px rgba(0,194,255,.25);background:#fff}
+
+    /* 卡片 */
+    .glass{background:var(--card);border-radius:18px;padding:40px 46px;box-shadow:0 20px 60px rgba(27,34,66,.08)}
+    .lead+.lead{margin-top:16px}
+    .card-top{display:flex;align-items:center;gap:11px;margin-bottom:6px}
+    .card-top i{width:12px;height:12px;border-radius:50%;display:block}
+    .card-top i.a{background:var(--cyan)}.card-top i.b{background:var(--magenta)}
+
+    /* 表单 */
+    form{max-width:620px;margin:0 auto}
+    label{display:block;margin:18px 0 8px;font-weight:700;font-size:15px}
+    label .hint{font-weight:500;color:var(--ink-soft);font-size:13px}
+    input,select,textarea{width:100%;padding:13px 15px;border-radius:11px;border:1.5px solid rgba(27,34,66,.16);background:#fff;font-size:15px;font-family:inherit;box-sizing:border-box;transition:.15s}
+    input:focus,select:focus,textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,194,255,.18)}
+    textarea{resize:vertical}
+    .form-actions{margin-top:22px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
+    /* V3：提交中按钮禁用态 + 提交结果颜色（成功 / 失败） */
+    .btn[disabled],.btn[disabled]:hover{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none;pointer-events:none}
+    #fbStatus.fb-ok{color:#0f8a5f;font-weight:700}
+    #fbStatus.fb-err{color:#d93a3a;font-weight:700}
+
+    footer{padding:38px 0 50px;color:var(--ink-soft);font-size:13px;border-top:1px solid rgba(27,34,66,.08);position:relative;z-index:3}
+    footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+    /* ============ V2 动效增强（桌面端优先） ============ */
+    html{scroll-behavior:smooth}
+
+    /* 顶部滚动进度条 */
+    .progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:999;pointer-events:none;
+      background:linear-gradient(90deg,var(--cyan),var(--magenta),var(--purple));
+      box-shadow:0 0 12px rgba(255,79,216,.65)}
+
+    /* 导航滚动加深 */
+    header{transition:background .3s,box-shadow .3s}
+    header.scrolled{background:rgba(238,241,248,.9);box-shadow:0 10px 34px rgba(27,34,66,.12)}
+
+    /* 导航链接下划线滑入（微交互） */
+    nav .links a{position:relative}
+    nav .links a::after{content:"";position:absolute;left:0;bottom:-5px;height:2px;width:0;
+      background:linear-gradient(90deg,var(--cyan),var(--magenta));transition:width .28s ease}
+    nav .links a:hover::after{width:100%}
+
+    /* 滚动入场（淡入 + 上移，可错落） */
+    /* 注意：隐藏状态挂在 .js 下——脚本不可用时正文不会被永久藏住 */
+    .reveal{transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+    .js .reveal{opacity:0;transform:translateY(30px)}
+    .js .reveal.in{opacity:1;transform:none}
+    .reveal.d1{transition-delay:.08s}
+    .reveal.d2{transition-delay:.16s}
+    .reveal.d3{transition-delay:.26s}
+    .reveal.d4{transition-delay:.36s}
+
+    /* 卡片 hover：上浮 + 霓虹描边 + 光泽扫过 */
+    .glass{position:relative;border:1px solid rgba(27,34,66,.06);
+      transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .38s,border-color .38s,opacity .8s cubic-bezier(.2,.7,.2,1)}
+    .glass::after{content:"";position:absolute;inset:0;border-radius:18px;pointer-events:none;
+      background:linear-gradient(120deg,transparent 38%,rgba(0,194,255,.12),transparent 62%);
+      opacity:0;transition:opacity .38s}
+    .glass:hover{transform:translateY(-6px);border-color:rgba(0,194,255,.45);
+      box-shadow:0 34px 80px rgba(27,34,66,.16),0 0 0 1px rgba(255,79,216,.18)}
+    .glass:hover::after{opacity:1}
+
+    /* 按钮微交互 + 光泽扫过 */
+    .btn{position:relative;overflow:hidden}
+    .btn:active{transform:translateY(0) scale(.97)}
+    .btn.primary::before{content:"";position:absolute;top:0;left:-130%;width:60%;height:100%;pointer-events:none;
+      background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);
+      transform:skewX(-18deg);transition:left .6s ease}
+    .btn.primary:hover::before{left:140%}
+
+    /* 品牌 Logo（方案 04 · 行星 + 光环 · 配色 A 经典青→品红 · 34px） */
+    .brand{display:inline-flex;align-items:center;gap:10px}
+    .brand .logo{width:34px;height:34px;flex:none;display:block;
+      filter:drop-shadow(0 0 7px rgba(255,79,216,.32))}
+
+    /* 背景动效：太阳呼吸浮动 */
+    .sun{animation:floaty 9s ease-in-out infinite}
+    @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+
+    /* 星星闪烁层 */
+    .stars{position:absolute;inset:0}
+    .star{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--cyan);
+      opacity:.4;animation:twinkle 3s ease-in-out infinite}
+    @keyframes twinkle{0%,100%{opacity:.12;transform:scale(.75)}50%{opacity:.9;transform:scale(1.35)}}
+
+    /* 鼠标霓虹光晕（仅精确指针设备） */
+    .spotlight{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity .5s;
+      background:radial-gradient(340px 340px at var(--mx,50%) var(--my,30%),rgba(0,194,255,.16),rgba(255,79,216,.08),transparent 72%)}
+    .spotlight.on{opacity:1}
+
+    /* ============ V2 第 4 轮：移动端适配（响应式） ============ */
+
+    /* 触摸设备：取消"粘住"的 hover 效果（手机上点一下，卡片不该一直悬着） */
+    @media (hover:none){
+      .glass:hover{transform:none;border-color:rgba(27,34,66,.06);box-shadow:0 20px 60px rgba(27,34,66,.08)}
+      .glass:hover::after{opacity:0}
+      .btn.primary:hover{transform:none;box-shadow:0 12px 30px rgba(255,79,216,.35)}
+      .btn.primary:hover::before{left:-130%}
+      .btn.ghost:hover{box-shadow:none}
+    }
+
+    /* 平板 / 窄桌面 */
+    @media (max-width:900px){
+      .wrap{padding:0 22px}
+      section{padding:66px 0}
+      .sun{width:150px;height:150px;top:6%;left:5%}
+      .skyline{height:150px}
+      .rings{width:210px;height:210px;top:24px;right:18px}
+      .glass{padding:34px 32px}
+    }
+
+    /* 手机 */
+    @media (max-width:640px){
+      html{-webkit-text-size-adjust:100%}
+      .wrap{padding:0 18px}
+      section{padding:54px 0}
+
+      /* 背景图形缩小，别在小屏上抢戏 */
+      .sun{width:116px;height:116px;top:5%;left:4%;opacity:.8}
+      .skyline{height:108px}
+      .rings{width:158px;height:158px;top:18px;right:12px;opacity:.7}
+      .ring.r2{inset:22px}
+      .ring.r3{inset:46px}
+      .sat{width:12px;height:12px;top:-6px;margin-left:-6px}
+
+      /* 导航：更紧凑，触摸目标更大 */
+      nav{height:58px}
+      .brand{font-size:17px;gap:8px}
+      .brand .logo{width:30px;height:30px}
+      nav .links{gap:2px;font-size:13.5px}
+      nav .links a{padding:10px 9px;border-radius:8px}
+      nav .links a::after{display:none}   /* 触摸设备没有 hover，下划线滑入无意义 */
+
+      /* Hero */
+      #hero{min-height:86vh}
+      .name{font-size:clamp(46px,14vw,78px)}
+      .tagline{font-size:17px;margin-bottom:18px}
+      .sum{font-size:16px;margin-bottom:26px}
+
+      /* 按钮：整行铺满，拇指好点 */
+      .cta{gap:12px}
+      .cta .btn{flex:1 1 100%}
+      .btn{padding:14px 22px;font-size:15px}
+
+      /* 卡片 */
+      .glass{padding:26px 20px;border-radius:16px}
+      .glass::after{border-radius:16px}
+
+      /* 表单：16px 可避免 iOS 聚焦时页面被自动放大 */
+      input,select,textarea{font-size:16px;padding:12px 13px}
+      label{font-size:14px}
+      h2{font-size:26px}
+    }
+
+    /* 小屏手机（≤400px） */
+    @media (max-width:400px){
+      .wrap{padding:0 15px}
+      .name{font-size:clamp(42px,13vw,60px)}
+      .glass{padding:22px 16px}
+      .rings{opacity:.5}
+      .brand{font-size:16px}
+      .brand .logo{width:28px;height:28px}
+      nav .links{font-size:12.5px}
+      nav .links a{padding:9px 7px}
+    }
+
+    /* ============ V2 第 5 轮：内容板块（正在学 / 在做的东西 / 时间线） ============ */
+    .facts{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:13px}
+    .facts li{position:relative;padding-left:22px;font-size:16px;color:var(--ink-soft);line-height:1.7}
+    .facts li::before{content:"";position:absolute;left:0;top:11px;width:9px;height:9px;border-radius:50%;
+      background:linear-gradient(135deg,var(--cyan),var(--magenta))}
+    .facts b{color:var(--ink);font-weight:800;margin-right:8px}
+
+    .item{margin-top:22px}
+    .item+.item{margin-top:22px;padding-top:22px;border-top:1px dashed rgba(27,34,66,.14)}
+    .item-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+    .item-head b{font-size:19px;font-weight:800;color:var(--ink)}
+    .tag{font-size:12px;font-weight:800;letter-spacing:.04em;padding:3px 10px;border-radius:999px;color:#fff;
+      background:linear-gradient(120deg,var(--cyan),var(--purple))}
+    .item .lead{margin:0}
+
+    @media (max-width:640px){
+      .facts li{font-size:15px;padding-left:19px}
+      .facts li::before{top:10px;width:8px;height:8px}
+      .item-head b{font-size:17px}
+      .item .lead{font-size:15px}
+    }
+
+    /* 动效可关闭（无障碍：系统开启"减少动态"时全部禁用） */
+    @media (prefers-reduced-motion:reduce){
+      *{animation:none!important;transition:none!important}
+      .reveal{transition:none}
+      .js .reveal{opacity:1;transform:none}
+      .spotlight{display:none}
+    }
+
+    /* ============================================================
+       V2 第 6 轮：开场动画（变体一「斜切快门」· 4 幕 · 可互动）
+       幕1 合拢 → 幕2 署名 → 幕3 呼吸 → 幕4 张开（总时长约 5 秒）
+       互动：鼠标视差 / 单击或空格推进下一幕 / 底部 4 段进度可点 / Esc 或按钮跳过
+       规则：每次会话只播一次（sessionStorage）；iframe 内不播；减少动态时不播
+       （斜板基础态就是"已覆盖全屏"：宽 40% 互相搭接 25%，任何比例都不露缝）
+       ============================================================ */
+    .ni{position:fixed;inset:0;z-index:9998;display:none;overflow:hidden;cursor:pointer;
+      background:var(--bg);touch-action:pan-y}
+    .ni.run{display:block}
+    /* 幕4 起整块背景透明：斜板向右扫走时直接把主页"擦"出来，
+       而不是等动画结束再硬切（否则会有约 0.5s 的浅色空屏） */
+    .ni.act4{background:transparent}
+    .ni .stage{position:absolute;inset:0;overflow:hidden}
+    .ni .layer{position:absolute;inset:0;will-change:transform}
+    .ni .band{position:absolute;top:-3%;height:106%;width:40%;
+      transform:skewX(-10deg) translateX(0)}
+    .ni .b1{left:-35%;background:#1b2242}
+    .ni .b2{left:-10%;background:var(--magenta)}
+    .ni .b3{left:15%;background:#ffffff}
+    .ni .b4{left:40%;background:#1b2242}
+    .ni .b5{left:65%;background:var(--magenta)}
+    .ni .dots{position:absolute;inset:0;opacity:.4;
+      background-image:radial-gradient(#1b2242 1.7px,transparent 1.8px);background-size:15px 15px}
+    .ni .flash{position:absolute;inset:0;background:#fff;opacity:0}
+    .ni .burst{position:absolute;right:5%;top:50%;width:min(42vw,460px);opacity:0;
+      transform:translateY(-50%) scale(.15) rotate(-22deg)}
+    /* 三行字整个坐在洋红→紫的斜切色条上（色条用 inset:0 跟着文字盒子走，
+       所以在任何屏幕宽度下都会完整盖住三行字，不会露出底下的斜板撞色） */
+    .ni .mark{position:absolute;left:8%;top:50%;opacity:0;padding:20px 32px;
+      transform:translate(-70px,-50%)}
+    .ni .bar-m{position:absolute;inset:0;
+      background:linear-gradient(90deg,var(--magenta),var(--purple));
+      transform-origin:left center;transform:skewX(-12deg) scaleX(0)}
+    .ni .mark .txt{position:relative}
+    .ni .kick{font:700 13px/1 inherit;letter-spacing:.22em;text-transform:uppercase;
+      color:#fff;opacity:.9;margin-bottom:12px}
+    .ni .nm{font-size:min(11vw,106px);font-weight:800;letter-spacing:.02em;line-height:.98;
+      color:#fff;text-shadow:0 2px 0 rgba(27,34,66,.22)}
+    .ni .tl{margin-top:12px;font:600 15px/1.5 inherit;color:#fff;opacity:.94}
+    .ni .hint2{position:absolute;z-index:6;left:50%;bottom:46px;transform:translateX(-50%);
+      padding:7px 13px;border-radius:999px;background:rgba(255,255,255,.88);
+      font:600 12px/1 inherit;color:var(--ink-soft);white-space:nowrap;
+      box-shadow:0 4px 14px rgba(27,34,66,.13)}
+    .ni .prog{position:absolute;z-index:6;left:50%;bottom:24px;transform:translateX(-50%);
+      display:flex;gap:7px}
+    .ni .prog i{display:block;width:40px;height:7px;background:rgba(27,34,66,.2);
+      transform:skewX(-18deg);transition:background .2s,transform .2s}
+    .ni .prog i.on{background:linear-gradient(90deg,var(--cyan),var(--magenta))}
+    .ni .prog i:hover{transform:skewX(-18deg) scaleY(1.6)}
+    .ni .skip{position:absolute;z-index:6;right:18px;bottom:18px;cursor:pointer;border:0;
+      font:600 12.5px/1 inherit;padding:10px 14px;border-radius:999px;color:var(--ink);
+      background:rgba(255,255,255,.86);box-shadow:0 6px 18px rgba(27,34,66,.18)}
+    .ni .skip:hover{background:#fff}
+    html.ni-lock{overflow:hidden}
+
+    /* 幕 1：快门合拢 */
+    .ni.act1 .band{animation:ni-in .8s cubic-bezier(.16,1,.3,1) both}
+    .ni.act1 .b1{animation-delay:.02s}
+    .ni.act1 .b3{animation-delay:.08s}
+    .ni.act1 .b5{animation-delay:.12s}
+    .ni.act1 .b2{animation-delay:.16s}
+    .ni.act1 .b4{animation-delay:.22s}
+    .ni.act1 .dots{animation:ni-in-flat .9s cubic-bezier(.16,1,.3,1) both .32s}
+    /* 幕 2：署名（色条展开 → 名字带斜切滑入 → 星芒炸开 + 白闪 + 抖动） */
+    .ni.act2 .bar-m{animation:ni-bar .28s cubic-bezier(.2,1.5,.3,1) both .04s}
+    .ni.act2 .mark{animation:ni-mark .5s cubic-bezier(.2,1.4,.3,1) both .12s}
+    .ni.act2 .burst{animation:ni-burst .95s cubic-bezier(.2,1.5,.3,1) both .24s}
+    .ni.act2 .flash{animation:ni-flash .34s steps(3,end) both .2s}
+    .ni.act2 .stage{animation:ni-shake .34s steps(4,end) both .22s}
+    /* 幕 3：呼吸（网点横移 + 名字故障闪 + 星芒缓转） */
+    .ni.act3 .dots{animation:ni-halftone 1.2s cubic-bezier(.5,0,.2,1) both}
+    .ni.act3 .nm{animation:ni-glitch .56s steps(2,end) both}
+    .ni.act3 .burst svg{animation:ni-spin 2.4s ease-in-out both}
+    /* 幕 4：张开（斜板继续向右扫出，露出主页） */
+    .ni.act4 .band{animation:ni-out .78s cubic-bezier(.45,0,.9,.4) both}
+    .ni.act4 .b1{animation-delay:0s}
+    .ni.act4 .b2{animation-delay:.04s}
+    .ni.act4 .b3{animation-delay:.07s}
+    .ni.act4 .b4{animation-delay:.11s}
+    .ni.act4 .b5{animation-delay:.14s}
+    .ni.act4 .dots{animation:ni-out-flat .84s cubic-bezier(.45,0,.9,.4) both .18s}
+    .ni.act4 .mark{animation:ni-mark-out .56s cubic-bezier(.45,0,.9,.4) both .1s}
+    .ni.act4 .burst{animation:ni-burst-out .6s cubic-bezier(.45,0,.9,.4) both .06s}
+    .ni.act4 .flash{animation:ni-flash2 .34s steps(3,end) both}
+    .ni.act4 .stage{animation:ni-shake2 .34s steps(4,end) both .02s}
+    /* 幕4 底部控件跟着淡出，别留在扫干净的画面上 */
+    .ni.act4 .hint2,.ni.act4 .prog,.ni.act4 .skip{animation:ni-fade .45s ease both}
+    @keyframes ni-fade{to{opacity:0}}
+
+    /* 位移量用 vw 而不是 %：% 是元素自身宽度的百分比，五条斜板 left 各不相同，
+       用 % 会导致靠左那条退场后仍然停在屏幕上（曾把主页盖住 25%~65% 宽度）。
+       160vw 保证任何一条斜板/网点层都彻底离开视口（进出各一次）。 */
+    @keyframes ni-in{from{transform:skewX(-10deg) translateX(-160vw)}
+      to{transform:skewX(-10deg) translateX(0)}}
+    @keyframes ni-in-flat{from{transform:translateX(-160vw)}to{transform:translateX(0)}}
+    @keyframes ni-out{from{transform:skewX(-10deg) translateX(0)}
+      to{transform:skewX(-10deg) translateX(160vw)}}
+    @keyframes ni-out-flat{from{transform:translateX(0)}to{transform:translateX(160vw)}}
+    @keyframes ni-mark{
+      0%{opacity:0;transform:translate(-70px,-50%) skewX(-15deg)}
+      55%{opacity:1}
+      100%{opacity:1;transform:translate(0,-50%) skewX(-8deg)}}
+    @keyframes ni-mark-out{
+      0%{opacity:1;transform:translate(0,-50%) skewX(-8deg)}
+      100%{opacity:0;transform:translate(-120%,-50%) skewX(-8deg)}}
+    @keyframes ni-bar{from{transform:skewX(-12deg) scaleX(0)}
+      to{transform:skewX(-12deg) scaleX(1)}}
+    @keyframes ni-burst{
+      0%{opacity:0;transform:translateY(-50%) scale(.15) rotate(-22deg)}
+      38%{opacity:1;transform:translateY(-50%) scale(1.14) rotate(-4deg)}
+      100%{opacity:1;transform:translateY(-50%) scale(1) rotate(-8deg)}}
+    @keyframes ni-burst-out{
+      0%{opacity:1;transform:translateY(-50%) scale(1) rotate(-8deg)}
+      100%{opacity:0;transform:translateY(-50%) scale(.6) rotate(16deg)}}
+    @keyframes ni-flash{0%{opacity:0}30%{opacity:.9}100%{opacity:0}}
+    @keyframes ni-flash2{0%{opacity:0}26%{opacity:.85}100%{opacity:0}}
+    @keyframes ni-shake{0%{transform:translateX(7px)}25%{transform:translateX(-6px)}
+      50%{transform:translateX(4px)}100%{transform:translateX(0)}}
+    @keyframes ni-shake2{0%{transform:translateX(-6px)}30%{transform:translateX(5px)}
+      60%{transform:translateX(-3px)}100%{transform:translateX(0)}}
+    @keyframes ni-halftone{0%{transform:translateX(0);opacity:.4}
+      45%{transform:translateX(-18px);opacity:.55}
+      100%{transform:translateX(0);opacity:.4}}
+    @keyframes ni-glitch{0%{transform:translate(0,0)}
+      20%{transform:translate(-5px,1px)}40%{transform:translate(4px,-1px)}
+      60%{transform:translate(-2px,0)}100%{transform:translate(0,0)}}
+    @keyframes ni-spin{from{transform:rotate(0) scale(1)}
+      50%{transform:rotate(6deg) scale(1.04)}to{transform:rotate(3deg) scale(1)}}
+
+    /* ===== V2 第 6 轮：像素霓虹企鹅桌宠（右下角悬浮）===== */
+    .pet{position:fixed;right:18px;bottom:14px;width:76px;z-index:60;
+      transition:opacity .3s ease,transform .3s ease}
+    .pet svg{display:block;width:100%;height:auto;overflow:visible}
+    .pet.pet-hide{opacity:0;transform:translateY(12px);pointer-events:none}
+    @media (max-width:640px){
+      .pet{width:60px;right:12px;bottom:10px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       V2 第 6 轮：开场动画（变体一「斜切快门」）
+       没有 .run 时整块 display:none，不挡任何内容
+       交互：单击/空格/回车/→ 推进下一幕，← 回上一幕，
+             Esc 或右下角"跳过"直接进主页，底部 4 段可点跳幕
+       ============================================================ -->
+  <div class="ni" id="ni">
+    <div class="stage">
+      <div class="layer pA">
+        <div class="band b1"></div>
+        <div class="band b2"></div>
+        <div class="band b3"></div>
+        <div class="band b4"></div>
+        <div class="band b5"></div>
+        <div class="dots"></div>
+      </div>
+      <div class="layer pB">
+        <div class="mark">
+          <span class="bar-m"></span>
+          <div class="txt">
+            <div class="kick">Neon Retro · Future</div>
+            <div class="nm">袁培淞</div>
+            <div class="tl">计算机科学与技术专业本科生</div>
+          </div>
+        </div>
+      </div>
+      <div class="layer pC">
+        <div class="burst">
+          <svg viewBox="0 0 200 200" aria-hidden="true">
+            <path d="M100 6l12 60 44-42-30 56 62-6-62 22 60 34-64-14 6 74-28-66-28 66 6-74-64 14 60-34-62-22 62 6-30-56 44 42z" fill="#7a5cff" opacity=".22"/>
+            <path d="M100 20l10 52 38-36-26 48 54-4-54 18 52 30-56-12 4 64-22-56-24 56 6-64-56 12 52-30-54-18 54 4-26-48 38 36z" fill="#00c2ff"/>
+            <path d="M100 42l7 34 26-24-18 32 36-2-36 12 34 20-36-8 2 42-15-36-16 36 4-42-36 8 34-20-36-12 36 2-18-32 26 24z" fill="#ff4fd8" opacity=".9"/>
+          </svg>
+        </div>
+      </div>
+      <div class="flash"></div>
+    </div>
+    <div class="hint2" id="niHint">点击 / 空格推进下一幕 · Esc 跳过</div>
+    <div class="prog" id="niProg">
+      <i data-act="1"></i><i data-act="2"></i><i data-act="3"></i><i data-act="4"></i>
+    </div>
+    <button class="skip" id="niSkip" type="button">跳过 ›</button>
+  </div>
+
+  <!-- 顶部滚动进度条 -->
+  <div class="progress" id="progress"></div>
+  <!-- 鼠标霓虹光晕 -->
+  <div class="spotlight" id="spotlight"></div>
+
+  <!-- 背景场景 -->
+  <div class="scene">
+    <div class="stars" id="stars"></div>
+    <div class="sun"></div>
+    <svg class="skyline" viewBox="0 0 1440 190" preserveAspectRatio="none">
+      <g>
+        <rect x="0" y="120" width="60" height="70" fill="#7a5cff"/><rect x="440" y="90" width="70" height="100" fill="#ff4fd8"/>
+        <rect x="900" y="60" width="80" height="130" fill="#00c2ff"/><rect x="1200" y="110" width="60" height="80" fill="#ff6fae"/>
+        <rect x="80" y="150" width="40" height="40" fill="#00c2ff"/><rect x="540" y="150" width="40" height="40" fill="#7a5cff"/>
+        <rect x="980" y="150" width="40" height="40" fill="#ff4fd8"/><rect x="1300" y="150" width="40" height="40" fill="#00c2ff"/>
+        <rect x="60" y="160" width="6" height="30" fill="#ff4fd8"/><rect x="920" y="40" width="6" height="22" fill="#ff4fd8"/>
+        <rect x="260" y="130" width="80" height="60" fill="#00c2ff"/><rect x="700" y="130" width="80" height="60" fill="#ff6fae"/>
+        <rect x="1080" y="120" width="70" height="70" fill="#7a5cff"/>
+        <g fill="#fff"><rect x="250" y="145" width="8" height="10"/><rect x="270" y="145" width="8" height="10"/><rect x="290" y="145" width="8" height="10"/><rect x="690" y="145" width="8" height="10"/><rect x="710" y="145" width="8" height="10"/><rect x="1070" y="135" width="8" height="10"/><rect x="1090" y="135" width="8" height="10"/></g>
+      </g>
+    </svg>
+    <div class="rings">
+      <div class="ring r1"><span class="sat"></span></div>
+      <div class="ring r2"></div>
+      <div class="ring r3"><span class="sat"></span></div>
+    </div>
+  </div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a class="brand" href="#hero">
+          <svg class="logo" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="brandPlanet" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#00c2ff"/>
+                <stop offset="1" stop-color="#ff4fd8"/>
+              </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="23" fill="url(#brandPlanet)"/>
+            <ellipse cx="50" cy="50" rx="40" ry="12" fill="none" stroke="#ff4fd8"
+              stroke-width="6" transform="rotate(-20 50 50)"/>
+          </svg>
+          <span>袁培淞</span>
+        </a>
+        <div class="links"><a href="#about">关于</a><a href="#learning">正在学</a><a href="#projects">项目</a><a href="#feedback">建议</a></div>
+      </nav>
+    </div>
+  </header>
+
+  <section id="hero">
+    <div class="wrap">
+      <div class="kicker reveal d1">Neon Retro · Future</div>
+      <div class="name reveal d2">袁培淞</div>
+      <div class="tagline reveal d3">计算机科学与技术专业本科生</div>
+      <p class="sum reveal d3">
+        我是袁培淞，计算机科学与技术专业本科在读。现在在深圳，正用 Vibe Coding 从零设计、开发自己的产品项目；未来希望逐步学习计算机与 AI 的前沿技术。
+      </p>
+      <div class="cta reveal d4">
+        <a class="btn primary" href="#feedback">给我建议</a>
+        <a class="btn ghost" href="#about">关于我</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="glass reveal">
+        <div class="card-top"><i class="a"></i><i class="b"></i><span class="kicker">About</span></div>
+        <h2>关于我</h2>
+        <p class="lead">
+          我现在在深圳。正在用 Vibe Coding 把想法做成产品项目——从需求到上线，一步步亲手实践；未来希望逐步学习计算机与 AI 的前沿技术，做出更多真正有用的东西。
+        </p>
+        <p class="lead">
+          当初选计算机这个专业，一是对计算机本身就感兴趣，二是看重它的就业前景。
+        </p>
+        <p class="lead">
+          学习上我比较佛系，但做事有自己的节奏；性格介于阳光开朗与沉默内敛之间。闲暇时喜欢打羽毛球或者打台球。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="learning">
+    <div class="wrap">
+      <div class="glass reveal">
+        <div class="card-top"><i class="a"></i><i class="b"></i><span class="kicker">Learning</span></div>
+        <h2>正在学</h2>
+        <p class="lead">起步不算早——现在是实打实的新手阶段，但每一步都留下了记录。</p>
+        <ul class="facts">
+          <li><b>编程入门</b><span>从零开始，目前能自己读懂并修改 HTML / CSS，正在继续往前学。</span></li>
+          <li><b>Git 版本管理</b><span>会用 Git 做版本提交。这个主页从第一版到现在的每一次改动，都记在版本历史里。</span></li>
+        </ul>
+        <p class="lead" style="margin-top:18px">我不太说自己"掌握"了什么——上面这两条，是我现在确实能做的事。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="glass reveal">
+        <div class="card-top"><i class="a"></i><i class="b"></i><span class="kicker">Projects</span></div>
+        <h2>在做的东西</h2>
+        <p class="lead">目前只有一个，但它是我从零走完的。</p>
+
+        <div class="item">
+          <div class="item-head"><b>个人主页</b><span class="tag">进行中</span></div>
+          <p class="lead">我的第一个项目。用 Vibe Coding 的方式和 AI 一起做——从定方向、挑视觉风格，到一版一版地改，主意都是我自己拿的。</p>
+          <p class="lead">V2 阶段到现在一共 5 轮改动：加动效、重做视觉标识、手机端适配、给板块补上真实内容。其中有一轮做完发现不好看，退回来重新设计后重做了一遍——那一轮反而是我学到最多的。</p>
+          <p class="lead">技术上：单文件 HTML / CSS / JS，零构建依赖；用 Git 记录每一次改动。</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head"><b>Logo 方案对比页</b><span class="tag">过程产物</span></div>
+          <p class="lead">为了定下个人标识，我一次画了 8 稿方案做成对比页，每稿都放在真实页面底色和真实导航栏尺寸下比较，最后才选定「行星 + 光环」这一稿。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="timeline">
+    <div class="wrap">
+      <div class="glass reveal">
+        <div class="card-top"><i class="a"></i><i class="b"></i><span class="kicker">Timeline</span></div>
+        <h2>时间线</h2>
+        <ul class="facts">
+          <li><b>高中毕业那年的暑假</b><span>第一次接触编程，开始自学。</span></li>
+          <li><b>现在</b><span>在深圳，计算机科学与技术专业本科在读。</span></li>
+          <li><b>接下来</b><span>把计算机与 AI 的基础一步步补齐，继续用 Vibe Coding 做自己的项目。</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="feedback">
+    <div class="wrap">
+      <div class="glass reveal">
+        <div class="card-top"><i class="a"></i><i class="b"></i><span class="kicker">Feedback</span></div>
+        <h2 style="text-align:center">匿名建议</h2>
+        <p class="muted" style="text-align:center">欢迎留下你的看法，我会认真看。称呼和身份都可以不填，完全匿名也行。<br />你的反馈<b>不会公开</b>，只有我一个人能看到。</p>
+        <form id="feedbackForm">
+          <label>怎么称呼您<span class="hint"> · 选填</span>
+            <input type="text" id="fbName" placeholder="例如：一位同学 / 陈老师 / 匿名" maxlength="30" />
+          </label>
+          <label>与我的关系<span class="hint"> · 选填</span>
+            <select id="fbRole">
+              <option value="">请选择（可选）</option>
+              <option>同学</option><option>老师</option><option>长辈</option><option>朋友</option>
+              <option>同事</option><option>其他</option><option>不便透露</option>
+            </select>
+          </label>
+          <label>您是在什么设备上看的<span class="hint"> · 选填</span>
+            <select id="fbDevice">
+              <option value="">请选择（可选）</option>
+              <option>电脑</option><option>手机</option><option>平板</option><option>其他</option>
+            </select>
+          </label>
+          <label>您的建议<span class="hint"> · 必填</span>
+            <textarea id="fbMsg" rows="5" maxlength="2000" placeholder="比如：哪里看不懂、哪里不好找、哪里在手机上不方便；或者希望看到什么内容。"></textarea>
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="btn primary">提交建议</button>
+            <p id="fbStatus" class="muted" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap reveal">
+      <div>© 2026 袁培淞 · 用 Vibe Coding 制作</div>
+      <div><a href="#hero">回到顶部 ↑</a></div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       V2 第 6 轮：像素霓虹企鹅桌宠（76px · 右下角悬浮）
+       ⚠️ 必须是内联 SVG：用 <img> 的话 :hover 不生效（拿不到内部元素）
+       ⚠️ 内联 SVG 里的 <style> 是全局生效的，所以类名全部 pp- 前缀隔离
+       ⚠️ 与 outputs/mascot-drafts/penguin-pixel.svg 保持同一份源码
+       ============================================================ -->
+  <div class="pet" id="pet">
+    <svg class="mascot-svg pp" viewBox="0 0 192 192" role="img" aria-label="像素企鹅桌宠">
+      <style>
+        /* ===== 桌宠行为（纯像素风，不套任何游戏 UI）=====
+           1) 呼吸霓虹   pp-breathe  8s     glow 强弱往返
+           2) 待机小跳   pp-hop      6.4s   每循环跳 1 格(12px) + 一次余震
+           3) 接地光晕   pp-ground   6.4s   与跳跃同相：离地变小变淡
+           4) 双眨眼     pp-blink    6.8s   两次单帧眨，不规律
+           5) 扫描线     pp-scan     4.2s   自上而下 6 段步进
+           6) 数据撕裂   pp-tear     7.3s   定格 1 段（0.2s）洋红横带
+           7) 悬停反应   hover       0.2s   整体上提 5px（不打断上面任何动画）
+           —— 各动画周期互质，避免机械重复；prefers-reduced-motion 全部关闭
+           —— 瞳孔：眼白 3 格宽 × 2 格高，瞳孔 1 格宽 × 2 格高，水平居中
+              （此前瞳孔贴眼白内侧 → 看着像斗鸡眼，已修）
+        */
+        .pp-lift { transition: transform .2s ease-out; }
+        .pp:hover .pp-lift { transform: translateY(-5px); }
+
+        .pp-px { animation: pp-breathe 8s ease-in-out infinite; }
+        .pp-hop { animation: pp-hop 6.4s cubic-bezier(.34, 0, .62, 1) infinite; }
+        .pp-blink { animation: pp-blink 6.8s steps(1, end) infinite; }
+        .pp-scan { animation: pp-scan 4.2s steps(6, end) infinite; }
+        .pp-tear { animation: pp-tear 7.3s steps(1, end) infinite; }
+        .pp-ground { animation: pp-ground 6.4s cubic-bezier(.34, 0, .62, 1) infinite; transform-box: fill-box; transform-origin: center; }
+
+        @keyframes pp-breathe {
+          0%, 100% { filter: drop-shadow(4px 4px 0 rgba(255, 79, 216, .7)) drop-shadow(-4px -4px 0 rgba(0, 194, 255, .7)); }
+          50% { filter: drop-shadow(5px 5px 0 #ff4fd8) drop-shadow(-5px -5px 0 #00c2ff); }
+        }
+        @keyframes pp-hop {
+          0%, 52% { transform: translateY(0); }
+          58% { transform: translateY(-12px); }
+          64% { transform: translateY(0); }
+          68% { transform: translateY(-5px); }
+          72%, 100% { transform: translateY(0); }
+        }
+        @keyframes pp-blink {
+          0%, 30.4% { opacity: 0; }
+          30.5% { opacity: 1; }
+          32.9% { opacity: 1; }
+          33%, 95.4% { opacity: 0; }
+          95.5% { opacity: 1; }
+          98.4% { opacity: 1; }
+          98.5%, 100% { opacity: 0; }
+        }
+        @keyframes pp-scan {
+          0% { transform: translateY(0); opacity: 0; }
+          6% { opacity: .5; }
+          68% { opacity: .5; }
+          76%, 100% { transform: translateY(72px); opacity: 0; }
+        }
+        @keyframes pp-tear {
+          0%, 71.9% { opacity: 0; }
+          72% { opacity: .8; }
+          74.9% { opacity: .8; }
+          75%, 100% { opacity: 0; }
+        }
+        @keyframes pp-ground {
+          0%, 52% { opacity: .55; transform: scaleX(1); }
+          58% { opacity: .18; transform: scaleX(.7); }
+          64% { opacity: .55; transform: scaleX(1); }
+          68% { opacity: .34; transform: scaleX(.86); }
+          72%, 100% { opacity: .55; transform: scaleX(1); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .pp-px, .pp-hop, .pp-blink, .pp-scan, .pp-tear, .pp-ground { animation: none; }
+          .pp-scan, .pp-tear { opacity: 0; }
+          .pp-lift { transition: none; }
+        }
+      </style>
+      <defs>
+        <radialGradient id="ppGroundGrad">
+          <stop offset="0" stop-color="#00c2ff" stop-opacity=".9" />
+          <stop offset=".55" stop-color="#7a5cff" stop-opacity=".35" />
+          <stop offset="1" stop-color="#ff4fd8" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+
+      <ellipse class="pp-ground" cx="96" cy="187" rx="56" ry="8" fill="url(#ppGroundGrad)" />
+
+      <g class="pp-lift">
+        <g class="pp-hop">
+          <g class="pp-px" shape-rendering="crispEdges">
+            <g fill="#1b2242">
+              <rect x="60" y="12" width="72" height="12" />
+              <rect x="48" y="24" width="96" height="12" />
+              <rect x="36" y="36" width="120" height="12" />
+              <rect x="36" y="48" width="12" height="12" /><rect x="84" y="48" width="24" height="12" /><rect x="144" y="48" width="12" height="12" />
+              <rect x="36" y="60" width="12" height="12" /><rect x="84" y="60" width="24" height="12" /><rect x="144" y="60" width="12" height="12" />
+              <rect x="48" y="72" width="24" height="12" /><rect x="120" y="72" width="24" height="12" />
+              <rect x="36" y="84" width="36" height="12" /><rect x="120" y="84" width="36" height="12" />
+              <rect x="24" y="96" width="60" height="12" /><rect x="108" y="96" width="60" height="12" />
+              <rect x="24" y="108" width="144" height="12" />
+              <rect x="24" y="120" width="24" height="12" /><rect x="144" y="120" width="24" height="12" />
+              <rect x="24" y="132" width="12" height="12" /><rect x="156" y="132" width="12" height="12" />
+              <rect x="24" y="144" width="12" height="12" /><rect x="156" y="144" width="12" height="12" />
+              <rect x="24" y="156" width="24" height="12" /><rect x="144" y="156" width="24" height="12" />
+              <rect x="24" y="168" width="144" height="12" />
+            </g>
+            <g fill="#e8edf8">
+              <rect x="48" y="48" width="36" height="24" /><rect x="108" y="48" width="36" height="24" />
+              <rect x="48" y="120" width="96" height="12" />
+              <rect x="36" y="132" width="120" height="12" />
+              <rect x="36" y="144" width="120" height="12" />
+              <rect x="48" y="156" width="96" height="12" />
+            </g>
+            <g fill="#1b2242">
+              <rect x="60" y="48" width="12" height="24" />
+              <rect x="120" y="48" width="12" height="24" />
+            </g>
+            <g fill="#ff9a3d">
+              <rect x="72" y="72" width="48" height="12" />
+              <rect x="72" y="84" width="48" height="12" />
+              <rect x="84" y="96" width="24" height="12" />
+              <rect x="36" y="180" width="36" height="12" /><rect x="120" y="180" width="36" height="12" />
+            </g>
+            <g class="pp-blink" fill="#1b2242">
+              <rect x="48" y="48" width="36" height="24" />
+              <rect x="108" y="48" width="36" height="24" />
+            </g>
+            <rect class="pp-scan" x="24" y="96" width="144" height="12" fill="#00c2ff" opacity="0" />
+            <rect class="pp-tear" x="36" y="156" width="120" height="12" fill="#ff4fd8" opacity="0" />
+          </g>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <script>
+    // 标记"脚本可用"：CSS 中 .reveal 的隐藏状态依赖这个类，
+    // 这样即使脚本被禁用或加载失败，正文也不会一直藏着看不见。
+    document.documentElement.classList.add('js');
+
+    /* ===== V3 反馈提交：浏览器 → 后台（Supabase） =====
+       ⚙️ 接线只需填下面两项，其余代码不用动：
+          · SUPABASE_URL：形如 https://xxxx.supabase.co
+          · SUPABASE_KEY：publishable key（这把钥匙本来就是公开放在前端的）
+       ❌ 绝对不要把 secret key / service_role key 写进这个页面。
+       未填这两项时，表单会降级为「暂存在本机浏览器」，方便后台接入前先预览。 */
+    (function () {
+      var SUPABASE_URL = 'https://kunspxxcpiltmdlczvkq.supabase.co';        // ← 已接线（2026-09-17）
+      var SUPABASE_KEY = 'sb_publishable_4gbuw4sVCBreGGDOCFiGAw_Ti5IN_bk'; // ← 已接线：publishable key（这把本来就是公开放在前端的）
+      var SITE_VERSION = 'v3';  // 随每条反馈自动附带，不要求访客填写
+
+      var form = document.getElementById('feedbackForm');
+      var status = document.getElementById('fbStatus');
+      var btn = form.querySelector('button[type="submit"]');
+      var BTN_TEXT = btn.textContent;
+      var busy = false;
+
+      function setStatus(text, kind) {
+        status.textContent = text;
+        status.className = 'muted' + (kind ? ' fb-' + kind : '');
+      }
+
+      function collect() {
+        return {
+          name: document.getElementById('fbName').value.trim() || null,
+          relation: document.getElementById('fbRole').value || null,
+          device: document.getElementById('fbDevice').value || null,
+          message: document.getElementById('fbMsg').value.trim(),
+          version: SITE_VERSION
+        };
+      }
+
+      /* 尚未接线时的降级：先存在本机浏览器（与 V2 行为一致） */
+      function saveLocal(payload) {
+        payload.time = new Date().toLocaleString('zh-CN');
+        var arr = [];
+        try { arr = JSON.parse(localStorage.getItem('site_feedback') || '[]'); } catch (err) { arr = []; }
+        arr.push(payload);
+        localStorage.setItem('site_feedback', JSON.stringify(arr));
+      }
+
+      /* 提交到 Supabase：调用官方 REST 接口，无需引入任何外部库 */
+      function sendToSupabase(payload) {
+        return fetch(SUPABASE_URL.replace(/\/+$/, '') + '/rest/v1/feedback', {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(payload)
+        }).then(function (r) {
+          if (!r.ok) { throw new Error('HTTP ' + r.status); }
+        });
+      }
+
+      var wired = /^https:\/\/.+\.supabase\.co$/i.test(SUPABASE_URL) && SUPABASE_KEY.length > 20;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (busy) { return; }                    // 防误点重复提交
+        var payload = collect();
+        if (!payload.message) { setStatus('请先写点建议内容再提交~', 'err'); return; }
+        if (payload.message.length > 2000) { setStatus('内容有点长，请控制在 2000 字以内~', 'err'); return; }
+
+        busy = true;
+        btn.disabled = true;                     // 提交中：禁用按钮
+        btn.textContent = '正在提交…';
+        setStatus('正在提交，请稍候…', '');
+
+        function done() { busy = false; btn.disabled = false; btn.textContent = BTN_TEXT; }
+
+        var task = wired ? sendToSupabase(payload) : Promise.resolve(saveLocal(payload));
+
+        task.then(function () {
+          form.reset();                          // 确认成功后才提示成功
+          setStatus(wired ? '已收到，感谢你的建议！' : '已收到（暂存在本机，后台接入后即可上传）。', 'ok');
+        }, function (err) {
+          setStatus('提交失败，请稍后重试（你写的内容还在，不用重填）。', 'err');
+          if (window.console && console.warn) { console.warn('[feedback] 提交失败：', err); }
+        }).then(done, done);                     // 无论成败都恢复按钮
+      });
+    })();
+
+    /* ===== V2 动效脚本（桌面端优先） ===== */
+    // 滚动进度条 + 导航加深 + 天际线视差
+    var progress = document.getElementById('progress');
+    var headerEl = document.querySelector('header');
+    var skyline = document.querySelector('.skyline');
+    function onScroll() {
+      var st = window.pageYOffset || document.documentElement.scrollTop;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      if (progress) progress.style.width = (max > 0 ? (st / max) * 100 : 0) + '%';
+      if (headerEl) headerEl.classList.toggle('scrolled', st > 12);
+      if (skyline) skyline.style.transform = 'translateY(' + (st * 0.06) + 'px)';
+      if (petEl) petEl.classList.toggle('pet-hide', max > 0 && st >= max - 90);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // 滚动入场动画
+    var revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      revealEls.forEach(function (el) { io.observe(el); });
+    } else {
+      revealEls.forEach(function (el) { el.classList.add('in'); });
+    }
+
+    // 生成闪烁星星
+    var stars = document.getElementById('stars');
+    if (stars) {
+      for (var i = 0; i < 28; i++) {
+        var s = document.createElement('span');
+        s.className = 'star';
+        s.style.left = (Math.random() * 100) + '%';
+        s.style.top = (Math.random() * 72) + '%';
+        s.style.animationDelay = (Math.random() * 3) + 's';
+        s.style.animationDuration = (2.4 + Math.random() * 2.6) + 's';
+        if (Math.random() > 0.5) s.style.background = 'var(--magenta)';
+        stars.appendChild(s);
+      }
+    }
+
+    // 鼠标霓虹光晕（仅精确指针设备）
+    var spot = document.getElementById('spotlight');
+    if (spot && window.matchMedia && window.matchMedia('(pointer:fine)').matches) {
+      window.addEventListener('mousemove', function (e) {
+        spot.style.setProperty('--mx', e.clientX + 'px');
+        spot.style.setProperty('--my', e.clientY + 'px');
+        spot.classList.add('on');
+      });
+      document.addEventListener('mouseleave', function () { spot.classList.remove('on'); });
+    }
+
+    /* ===== V2 第 6 轮：桌宠"到底部让位"（避免压住页脚的"回到顶部"）===== */
+    var petEl = document.getElementById('pet');
+
+    /* ===== V2 第 6 轮：开场动画（变体一 · 4 幕 · 可互动）=====
+       单击 / 空格 / 回车 / → 推进下一幕，← 返回上一幕，Esc 或"跳过"直接进主页
+       底部 4 段进度可点着跳幕；手机左右滑动切幕；鼠标移动有视差
+       ?intro=1 强制播放（调试/截图用），?intro=0 完全不播
+       iframe 内不播（小样页里嵌主页时不会重复播）；系统"减少动态"时不播
+       每次会话只播一次：sessionStorage.homeIntro
+       ============================================================ */
+    (function () {
+      var ni = document.getElementById('ni');
+      if (!ni) return;
+      var html = document.documentElement;
+      var DUR = [1200, 1250, 1200, 1300];        /* 四幕时长，合计约 4.95s */
+      var acts = ['act1', 'act2', 'act3', 'act4'];
+      var cur = 0, timer = null, dog = null, swiped = false, sx = 0;
+
+      var q = null;
+      try { q = new URLSearchParams(location.search).get('intro'); } catch (e) { q = null; }
+      var played = false;
+      try { played = sessionStorage.getItem('homeIntro') === '1'; } catch (e) { played = false; }
+      var embedded = false;
+      try { embedded = window.self !== window.top; } catch (e) { embedded = true; }
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function paint() {
+        var seg = ni.querySelectorAll('.prog i');
+        for (var i = 0; i < seg.length; i++) seg[i].classList.toggle('on', i < cur);
+      }
+      function clearActs() { for (var i = 0; i < 4; i++) ni.classList.remove(acts[i]); }
+
+      function end() {
+        if (timer) { clearTimeout(timer); timer = null; }
+        if (dog) { clearTimeout(dog); dog = null; }
+        ni.classList.remove('run');
+        clearActs();
+        cur = 0;
+        paint();
+        html.classList.remove('ni-lock');
+        window.removeEventListener('keydown', onKey);
+        window.removeEventListener('mousemove', onMove);
+        try { sessionStorage.setItem('homeIntro', '1'); } catch (e) {}
+      }
+
+      /* 跳到第 n 幕：幕类名是累积的（act1..actn），所以退场时不会跳变 */
+      function goto(n) {
+        if (timer) { clearTimeout(timer); timer = null; }
+        cur = n;
+        for (var i = 1; i <= n; i++) ni.classList.add('act' + i);
+        paint();
+        if (n === 4) {
+          /* 幕4 一开始就放开滚动锁：斜板飞出去时页面已经稳定，看不到回流抖动 */
+          html.classList.remove('ni-lock');
+          timer = setTimeout(end, DUR[3]);
+          return;
+        }
+        timer = setTimeout(function () { goto(n + 1); }, DUR[n - 1]);
+      }
+      /* 往回跳：必须先清空幕类并强制重排，否则同一个动画不会重播 */
+      function rewind(n) {
+        clearActs();
+        void ni.offsetWidth;
+        goto(n);
+      }
+
+      function next() {
+        if (!ni.classList.contains('run')) return;
+        if (cur >= 4) { end(); return; }
+        goto(cur + 1);
+      }
+      function prev() {
+        if (!ni.classList.contains('run') || cur <= 1) return;
+        rewind(cur - 1);
+      }
+
+      function onKey(e) {
+        if (e.key === 'Escape') { e.preventDefault(); end(); return; }
+        if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'Enter' ||
+            e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); next(); return; }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prev(); }
+      }
+
+      /* 鼠标视差：三层不同速度 + 阻尼缓动 */
+      var tA = 0, tB = 0, tC = 0, cA = 0, cB = 0, cC = 0, raf = 0;
+      var lA = ni.querySelector('.pA'), lB = ni.querySelector('.pB'), lC = ni.querySelector('.pC');
+      function onMove(e) {
+        var nx = (e.clientX / window.innerWidth - .5) * 2;
+        tA = nx * 10; tB = -nx * 22; tC = nx * 30;
+        if (!raf) raf = requestAnimationFrame(tick);
+      }
+      function tick() {
+        cA += (tA - cA) * .13; cB += (tB - cB) * .13; cC += (tC - cC) * .13;
+        if (lA) lA.style.transform = 'translate3d(' + cA.toFixed(2) + 'px,0,0)';
+        if (lB) lB.style.transform = 'translate3d(' + cB.toFixed(2) + 'px,0,0)';
+        if (lC) lC.style.transform = 'translate3d(' + cC.toFixed(2) + 'px,0,0)';
+        if (Math.abs(tA - cA) > .1 || Math.abs(tB - cB) > .1 || Math.abs(tC - cC) > .1) {
+          raf = requestAnimationFrame(tick);
+        } else { raf = 0; }
+      }
+
+      /* —— 交互绑定 —— */
+      ni.addEventListener('click', function (e) {
+        if (swiped) { swiped = false; return; }        /* 手机滑完那一下别当点击 */
+        if (e.target.closest && e.target.closest('.prog,.skip')) return;
+        next();
+      });
+      var skip = document.getElementById('niSkip');
+      if (skip) skip.addEventListener('click', function (e) { e.stopPropagation(); end(); });
+      var prog = document.getElementById('niProg');
+      if (prog) prog.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var seg = e.target.closest ? e.target.closest('i') : null;
+        if (!seg) return;
+        var n = parseInt(seg.getAttribute('data-act'), 10) || 1;
+        if (n > cur) { goto(n); } else if (n < cur) { rewind(n); }
+      });
+      /* 手机：左右滑动切幕 */
+      ni.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+      ni.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - sx;
+        if (Math.abs(dx) < 44) return;
+        swiped = true;
+        setTimeout(function () { swiped = false; }, 420);
+        if (dx < 0) { next(); } else { prev(); }
+      });
+
+      function play() {
+        cur = 0;
+        paint();
+        ni.classList.add('run');
+        html.classList.add('ni-lock');
+        void ni.offsetWidth;
+        goto(1);
+        dog = setTimeout(end, 9000);   /* 兜底：任何意外都保证 9s 内一定进主页 */
+        window.addEventListener('keydown', onKey);
+        window.addEventListener('mousemove', onMove);
+      }
+
+      if (embedded || reduce) return;     /* 小样 iframe / 系统减少动态 → 直接给正文 */
+      if (q === '0') return;
+      if (played && q !== '1') return;
+      play();
+    })();
+  </script>
+</body>
+</html>
