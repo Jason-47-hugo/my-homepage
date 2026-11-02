@@ -1686,6 +1686,57 @@
                  img: best.e.img || '', alt: best.e.alt || '' };
       }
 
+      /* ===== A1-ai：数字分身接真实大模型（DeepSeek，经腾讯云函数代理）=====
+         - 配了 AGENT_ENDPOINT 时，优先让 AI 真身回答；
+         - 模型失败 / 断网 / 超时 / 未配置时，自动回退到上面的本地知识库匹配（原行为不变）。
+         key 只存在腾讯云函数环境变量里，公开页面绝不写 key。 */
+      var AGENT_ENDPOINT = 'https://1523692403-gkepb3tv4h.ap-guangzhou.tencentscf.com'; // ← 你的腾讯云「函数 URL」
+      var AGENT_TIMEOUT = 15000; // 毫秒；模型最迟多久没回就回退本地
+
+      function askWithAgent(text, thenRender) {
+        var local = ask(text); // 先算一遍本地匹配，模型失败时用它兜底
+        if (!AGENT_ENDPOINT || !('fetch' in window)) { thenRender(local); return; }
+        var controlled = false;
+        var box = thenRender({ ok: true, score: 0, src: 'AI分身', a: '让我想想……' }); // 先出占位
+        var settle = function (finalRes) {
+          if (controlled) return;
+          controlled = true;
+          if (finalRes && finalRes.ok && finalRes.a && box && box.body) {
+            box.srcEl.textContent = '依据：' + (finalRes.src || 'AI分身');
+            finishTyping();
+            box.body.textContent = '';
+            typeText(box.body, finalRes.a, function () {
+              if (finalRes.img) {
+                var pic = el('img', 'msg-pic');
+                pic.alt = finalRes.alt || '';
+                pic.src = finalRes.img;
+                box.body.appendChild(pic);
+              }
+              toBottom();
+            });
+          } else {
+            // 失败 → 撤掉占位，改用本地回答（保留原来的“依据/没找到”标签）
+            if (box && box.wrap && box.wrap.parentNode) box.wrap.parentNode.removeChild(box.wrap);
+            thenRender(local);
+          }
+        };
+        var timer = setTimeout(function () { settle(local); }, AGENT_TIMEOUT);
+        try {
+          fetch(AGENT_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: text })
+          })
+            .then(function (r) { return r.json().catch(function () { return {}; }); })
+            .then(function (data) {
+              clearTimeout(timer);
+              if (data && data.ok && data.answer) settle({ ok: true, src: 'AI分身·DeepSeek', a: String(data.answer) });
+              else settle(local);
+            })
+            .catch(function () { clearTimeout(timer); settle(local); });
+        } catch (e) { clearTimeout(timer); settle(local); }
+      }
+
       /* ---------- 面板 DOM 与行为 ---------- */
       var askEl = $('#ask'), logEl = $('#askLog'), chipsEl = $('#askChips'), inputEl = $('#askInput');
       var petEl = $('#pet'), hintEl = $('#petHint');
@@ -1759,6 +1810,7 @@
           }
           toBottom();
         });
+        return { wrap: wrap, body: body, meta: meta, srcEl: meta.firstChild };
       }
 
       var curSpeak = null;
@@ -1808,7 +1860,7 @@
         if (!isTouch && inputEl) {
           try { inputEl.focus({ preventScroll: true }); } catch (e) { try { inputEl.focus(); } catch (e2) {} }
         }
-        setTimeout(function () { pushBot(ask(text)); }, reduce ? 0 : 240);
+        setTimeout(function () { askWithAgent(text, pushBot); }, reduce ? 0 : 240);
       }
 
       function hideHint() {
